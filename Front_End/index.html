@@ -3,14 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-  <meta content="width=device-width, initial-scale=1" name="viewport">
-  <!--link Bootstrap Framework-->
-  <link href="assets/styles/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/styles/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/styles/style.css" rel="stylesheet">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <!--link Bootstrap Framework-->
+    <link href="assets/styles/bootstrap-5.2.1-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/styles/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/styles/style.css" rel="stylesheet">
 </head>
 <body>
-
+<header class="container-fluid bg-info p-2">
+    <h2 class="text-white center">Image Upload And View With Spring</h2>
+</header>
+<section class="container mt-5">
+    <div class="row justify-content-around">
+        <div class="col-5">
+            <div id="display" class="sectionBorder border border-1, w-100" style="height: 450px"></div>
+        </div>
+        <div class="col-4 mt-5">
+            <form>
+                <label for="file">Upload Picture</label>
+                <input id="file" name="myFile" type="file" class="form-control mt-2">
+                <button type="button" id="btnUpload" class="btn btn-danger mt-3">Upload File</button>
+            </form>
+        </div>
+    </div>
+</section>
 
 <!--Import js for bootstrap-->
 <script src="assets/styles/bootstrap-5.2.1-dist/js/bootstrap.min.js"></script>
