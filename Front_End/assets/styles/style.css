@@ -6,6 +6,12 @@
     box-shadow: rgba(0, 0, 0, 0.3) 0 19px 38px, rgba(0, 0, 0, 0.22) 0 15px 12px;    border-radius: 8px;
 }
 
+.hColor{
+    /*bg-color:#232121;*/
+    background-color:#232121 !important;
+
+}
+
 .center{
     text-align: center;
 }

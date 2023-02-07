@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<header class="container-fluid bg-info p-2">
+<header class="container-fluid bg-info p-2 hColor">
     <h2 class="text-white center">Image Upload And View With Spring</h2>
 </header>
 <section class="container mt-5">
@@ -21,10 +21,13 @@
         </div>
         <div class="col-4 mt-5">
             <form>
-                <label for="formFileMultiple" class="form-label">Upload Picture</label>
-                <input class="form-control mt-2" name="file" type="file" id="formFileMultiple" multiple>
-
-                <button type="button" id="btnUpload" class="btn btn-danger mt-3">Upload File</button>
+                <div class="input-group-lg">
+                    <label for="formFileMultiple" class="form-label"><h3>Upload Picture</h3>
+                        <hr></label>
+                    <input class="form-control mt-2" name="file" type="file" id="formFileMultiple"
+                           aria-describedby="inputGroup-sizing-lg" multiple>
+                </div>
+                <button type="button" id="btnUpload" class="btn btn-outline-danger mt-3 btn-lg fw-bolder">Upload File</button>
             </form>
         </div>
     </div>
