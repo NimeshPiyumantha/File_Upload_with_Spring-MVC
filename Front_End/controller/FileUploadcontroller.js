@@ -8,9 +8,9 @@ loadTheLastUploadedImage();
 
 $("#btnUpload").click(function () {
     var data = new FormData();
-    let file = $("#file")[0].files[0];
-    let fileName = $("#file")[0].files[0].name;
-    data.append("myFile", file, fileName);
+    let file = $("#formFileMultiple")[0].files[0];
+    let fileName = $("#formFileMultiple")[0].files[0].name;
+    data.append("image", file, fileName);
 
     $.ajax({
         url: baseUrl + "upload",

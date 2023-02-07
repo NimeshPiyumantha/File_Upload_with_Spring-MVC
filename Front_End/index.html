@@ -17,12 +17,13 @@
 <section class="container mt-5">
     <div class="row justify-content-around">
         <div class="col-5">
-            <div id="display" class="sectionBorder border border-1, w-100" style="height: 450px"></div>
+            <div id="display" class="sectionBorder border w-100" style="height: 450px"></div>
         </div>
         <div class="col-4 mt-5">
             <form>
-                <label for="file">Upload Picture</label>
-                <input id="file" name="file" type="file" class="form-control mt-2">
+                <label for="formFileMultiple" class="form-label">Upload Picture</label>
+                <input class="form-control mt-2" name="file" type="file" id="formFileMultiple" multiple>
+
                 <button type="button" id="btnUpload" class="btn btn-danger mt-3">Upload File</button>
             </form>
         </div>

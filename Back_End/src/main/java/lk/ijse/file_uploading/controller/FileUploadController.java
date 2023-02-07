@@ -24,7 +24,7 @@ public class FileUploadController {
     private static final ArrayList<String> allImages = new ArrayList<>();
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity uploadFileWithSpringWay(@RequestPart("myFile") MultipartFile myFile) {
+    public ResponseEntity uploadFileWithSpringWay(@RequestPart("image") MultipartFile myFile) {
         try {
             String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
             File uploadsDir = new File(projectPath + "/uploads");
