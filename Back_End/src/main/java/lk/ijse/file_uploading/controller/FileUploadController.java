@@ -1,5 +1,6 @@
 package lk.ijse.file_uploading.controller;
 
+import lk.ijse.file_uploading.util.ResponseUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,8 @@ public class FileUploadController {
     private static final ArrayList<String> allImages = new ArrayList<>();
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity uploadFileWithSpringWay(@RequestPart("image") MultipartFile myFile) {
-        try {
+    public ResponseUtil uploadFileWithSpringWay(@RequestPart("image") MultipartFile myFile) throws IOException, URISyntaxException {
+
             String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
             File uploadsDir = new File(projectPath + "/uploads");
             uploadsDir.mkdir();
@@ -33,11 +34,8 @@ public class FileUploadController {
 
             allImages.add("uploads/" + myFile.getOriginalFilename());
 
-            return ResponseEntity.ok(HttpStatus.OK);
-        } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseUtil("OK", "Successfully Uploading. :", null);
+
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

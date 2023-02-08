@@ -1,5 +1,6 @@
 package lk.ijse.file_uploading.config;
 
+import lk.ijse.file_uploading.controller.FileUploadController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  **/
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"lk.ijse.file_uploading"})
+@ComponentScan(basePackageClasses = {FileUploadController.class})
 public class WebAppConfig implements WebMvcConfigurer {
 
     @Bean
