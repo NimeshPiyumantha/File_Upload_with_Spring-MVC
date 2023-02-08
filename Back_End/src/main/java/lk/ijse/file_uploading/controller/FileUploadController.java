@@ -1,16 +1,21 @@
 package lk.ijse.file_uploading.controller;
 
-import lk.ijse.file_uploading.util.ResponseUtil;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import lk.ijse.file_uploading.dto.ImageDTO;
+import lk.ijse.file_uploading.entity.Image;
+import lk.ijse.file_uploading.repo.FileUploadRepo;
+import lk.ijse.file_uploading.service.FileUploadService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 
 
 /**
@@ -22,24 +27,38 @@ import java.util.ArrayList;
 @CrossOrigin
 public class FileUploadController {
 
-    private static final ArrayList<String> allImages = new ArrayList<>();
+    @Autowired
+   private FileUploadService fileRepo;
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil uploadFileWithSpringWay(@RequestPart("image") MultipartFile myFile) throws IOException, URISyntaxException {
-
+    @PostMapping
+    public String uploadFileWithSpringWay(@RequestPart("image") MultipartFile myFile, ModelMap modelMap) {
+        modelMap.addAttribute("file", myFile);
+        try {
+            byte[] byteArray = myFile.getBytes();
+//            String projectPath = "D:\\Project\\File_Upload_with_Spring-MVC\\Front_End\\assets\\image";
             String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
-            File uploadsDir = new File(projectPath + "/uploads");
-            uploadsDir.mkdir();
-            myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
 
-            allImages.add("uploads/" + myFile.getOriginalFilename());
+            String path = "/" + myFile.getOriginalFilename();
+            Path location = Paths.get(projectPath + path);
+            Files.write(location, byteArray);
+            myFile.transferTo(location);
+            System.out.println(projectPath);
 
-        return new ResponseUtil("OK", "Successfully Uploading. :", null);
+//            String location2 = "assets/" + myFile.getOriginalFilename();
+            fileRepo.saveFileLocation(new ImageDTO(null, location.toString()));
+            return Base64.getEncoder().encodeToString(byteArray);
 
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ArrayList<String>> getAllImagesFromDatabase() {
-        return new ResponseEntity<>(allImages, HttpStatus.OK);
+    @GetMapping
+    public String getAll() {
+        return fileRepo.loadFileLocation();
     }
+
 }
