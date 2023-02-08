@@ -47,11 +47,8 @@ public class FileUploadController {
 //            String location2 = "assets/" + myFile.getOriginalFilename();
             fileRepo.saveFileLocation(new ImageDTO(null, location.toString()));
             return Base64.getEncoder().encodeToString(byteArray);
-
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (URISyntaxException e) {
+            
+        } catch (IOException | URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
