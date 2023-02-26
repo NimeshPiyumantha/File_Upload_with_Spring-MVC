@@ -4,7 +4,6 @@
  **/
 let baseUrl = "http://localhost:8080/Back_End_war/";
 
-loadTheLastUploadedImage();
 $("#btnUpload").click(function () {
     let formData = new FormData($("#formFile")[0]);
     $.ajax({
@@ -23,17 +22,14 @@ $("#btnUpload").click(function () {
     });
 });
 
-function loadTheLastUploadedImage() {
-    $.ajax({
-        url: baseUrl + "uploads", method: 'get', dataType: 'json', success: function (resp) {
-            console.log(resp.data.fileString);
-            let url = resp[resp.length - 1];
-            console.log(url);
-            $("#display").css({
-                "background": `url(${baseUrl + url})`, "background-size": "cover", "height": "300px"
-            });
-        }, error: function (err) {
-            console.log(err);
-        }
-    });
-}
+
+$.ajax({
+    url: baseUrl + "uploads", method: 'get', dataType: 'json', success: function (resp) {
+        console.log(resp.responseText);
+        $("#display").css({
+            "background": `url(${baseUrl + resp.responseText})`, "background-size": "cover", "height": "300px"
+        });
+    }, error: function (err) {
+        console.log(err);
+    }
+});
