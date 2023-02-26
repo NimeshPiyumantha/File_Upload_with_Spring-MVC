@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 /**
  * @author : Nimesh Piyumantha
  * @since : 0.1.0
@@ -25,8 +29,24 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     @Override
     public void saveFileLocation(ImageDTO dto) {
-        System.out.println(dto);
-        repo.save(mapper.map(dto, Image.class));
+        Image img = new Image("");
+
+        try {
+            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+            File uploadsDir = new File(projectPath + "/uploads");
+            System.out.println(projectPath);
+            uploadsDir.mkdir();
+
+            dto.getFileString().transferTo(new File(uploadsDir.getAbsolutePath() + "/" + dto.getFileString().getOriginalFilename()));
+
+            img.setFileString("uploads/" + dto.getFileString().getOriginalFilename());
+
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(img);
+       repo.save(img);
+
     }
 
     @Override

@@ -6,21 +6,16 @@ let baseUrl = "http://localhost:8080/Back_End_war/";
 
 loadTheLastUploadedImage();
 $("#btnUpload").click(function () {
-    var data = new FormData();
-    let file = $("#formFileMultiple")[0].files[0];
-    let fileName = $("#formFileMultiple")[0].files[0].name;
-    data.append("image", file, fileName);
-
+    let formData = new FormData($("#formFile")[0]);
     $.ajax({
-        url: baseUrl + "upload",
+        url: baseUrl + "uploads",
         method: 'post',
         async: true,
         contentType: false,
         processData: false,
-        data: data,
+        data: formData,
         success: function (resp) {
-            $('#display').attr('src', `data:image/png;base64,${resp}`);
-            loadTheLastUploadedImage();
+            alert("Successfully upload;");
         },
         error: function (err) {
             console.log(err);
@@ -28,20 +23,16 @@ $("#btnUpload").click(function () {
     });
 });
 
-loadTheLastUploadedImage();
-
 function loadTheLastUploadedImage() {
     $.ajax({
-        url: baseUrl + "upload",
-        method: 'get',
-        dataType: 'json',
-        success: function (resp) {
-
-            $('#display').attr('src', `${resp}`);
-            console.log(resp)
-
-        },
-        error: function (err) {
+        url: baseUrl + "uploads", method: 'get', dataType: 'json', success: function (resp) {
+            console.log(resp.data.fileString);
+            let url = resp[resp.length - 1];
+            console.log(url);
+            $("#display").css({
+                "background": `url(${baseUrl + url})`, "background-size": "cover", "height": "300px"
+            });
+        }, error: function (err) {
             console.log(err);
         }
     });

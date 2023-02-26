@@ -24,6 +24,10 @@ import javax.persistence.Id;
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String fileString;
+   private Integer id;
+    private String fileString;
+
+    public Image(String fileString) {
+        this.fileString = fileString;
+    }
 }

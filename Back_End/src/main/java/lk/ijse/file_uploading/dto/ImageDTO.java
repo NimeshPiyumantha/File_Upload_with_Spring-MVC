@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author : Nimesh Piyumantha
@@ -17,9 +18,9 @@ import lombok.ToString;
 @ToString
 public class ImageDTO {
     private String id;
-    String fileString;
+    private MultipartFile fileString;
 
-    public ImageDTO(String lastImageLocation) {
-        this.fileString = lastImageLocation;
+    public ImageDTO(MultipartFile fileString) {
+        this.fileString = fileString;
     }
 }

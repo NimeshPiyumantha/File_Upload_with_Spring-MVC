@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
  * @since : 0.1.0
  **/
 public interface FileUploadRepo extends JpaRepository<Image, Integer> {
-    @Query(value = "SELECT fileString FROM Image ORDER BY id DESC LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT fileString FROM Image ORDER BY fileString DESC LIMIT 1", nativeQuery = true)
     String getLastImageLocation();
-
 }
