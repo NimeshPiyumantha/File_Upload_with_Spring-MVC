@@ -50,7 +50,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public String loadFileLocation() {
+    public String getLastImageLocation() {
         System.out.println(repo.getLastImageLocation());
         return repo.getLastImageLocation();
     }

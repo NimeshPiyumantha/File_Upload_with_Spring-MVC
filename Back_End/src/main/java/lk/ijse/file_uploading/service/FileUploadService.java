@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.ModelAttribute;
  **/
 public interface FileUploadService {
     void saveFileLocation(@ModelAttribute ImageDTO dto);
-    String loadFileLocation();
+    String getLastImageLocation();
 }

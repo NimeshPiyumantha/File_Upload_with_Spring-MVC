@@ -15,21 +15,27 @@ $("#btnUpload").click(function () {
         data: formData,
         success: function (resp) {
             alert("Successfully upload;");
+            imageLoad();
         },
         error: function (err) {
             console.log(err);
         }
     });
 });
-
-
-$.ajax({
-    url: baseUrl + "uploads", method: 'get', dataType: 'json', success: function (resp) {
-        console.log(resp.responseText);
-        $("#display").css({
-            "background": `url(${baseUrl + resp.responseText})`, "background-size": "cover", "height": "300px"
-        });
-    }, error: function (err) {
-        console.log(err);
-    }
-});
+imageLoad();
+function imageLoad() {
+    $.ajax({
+        url: baseUrl + "uploads/lastImageLoad",
+        method: 'get',
+        success: function (resp) {
+            console.log(resp.data);
+            url1 = resp.data
+            $("#display").css({
+                "background": `url(${baseUrl + url1})`, "background-size": "cover"
+            });
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}

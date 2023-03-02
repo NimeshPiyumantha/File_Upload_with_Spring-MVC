@@ -4,6 +4,7 @@ import lk.ijse.file_uploading.dto.ImageDTO;
 import lk.ijse.file_uploading.service.FileUploadService;
 import lk.ijse.file_uploading.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,8 +26,9 @@ public class FileUploadController {
        return new ResponseUtil("ok","Successfuly",null);
     }
 
-    @GetMapping
-    public String getAll() {
-        return fileRepo.loadFileLocation();
+    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping(path = "/lastImageLoad")
+    public ResponseUtil getAllDriver() {
+        return new ResponseUtil("OK", "Successfully Loaded. :", fileRepo.getLastImageLocation());
     }
 }
